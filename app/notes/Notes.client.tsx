@@ -10,8 +10,13 @@ import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebouncedCallback } from 'use-debounce';
+import { FetchNotesResponse } from '@/types/note';
 
-const NotesClient = () => {
+interface NotesClientProps {
+  initialData: FetchNotesResponse;
+}
+
+const NotesClient = ({ initialData }: NotesClientProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState('');
@@ -21,6 +26,7 @@ const NotesClient = () => {
     queryFn: () => fetchNotes(query, currentPage),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
+    initialData,
   });
 
   const notes = data?.notes;
@@ -44,7 +50,7 @@ const NotesClient = () => {
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox value={query} onChange={handleSearch} />
+        <SearchBox onChange={handleSearch} />
         {totalPages && totalPages > 1 && <Pagination totalPages={totalPages} page={currentPage} onPageChange={setCurrentPage} />}
         <button className={css.button} onClick={openModal}>
           Create note +

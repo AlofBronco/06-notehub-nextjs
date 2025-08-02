@@ -8,6 +8,8 @@ const NotesPage = async () => {
   const query = '';
   const currentPage = 1;
 
+  const response = await fetchNotes(query, currentPage);
+
   await queryClient.prefetchQuery({
     queryKey: ['notes', query, currentPage],
     queryFn: () => fetchNotes(query, currentPage),
@@ -15,7 +17,7 @@ const NotesPage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient />
+      <NotesClient initialData={response} />
     </HydrationBoundary>
   );
 };
