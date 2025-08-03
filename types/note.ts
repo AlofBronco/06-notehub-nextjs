@@ -15,7 +15,3 @@ export interface NewNote {
   tag: NoteTag;
 }
 
-export interface FetchNotesResponse {
-  notes: Note[];
-  totalPages: number;
-}

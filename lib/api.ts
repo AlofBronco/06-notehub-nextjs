@@ -1,7 +1,12 @@
 import axios from 'axios';
-import type { FetchNotesResponse, NewNote, Note } from '@/types/note';
+import type { NewNote, Note } from '@/types/note';
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`;
+
+interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
 
 export const fetchNotes = async (query: string, page: number): Promise<FetchNotesResponse> => {
   try {

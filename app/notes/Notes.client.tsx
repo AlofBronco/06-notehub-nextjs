@@ -10,7 +10,12 @@ import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebouncedCallback } from 'use-debounce';
-import { FetchNotesResponse } from '@/types/note';
+import { Note } from '@/types/note';
+
+interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
 
 interface NotesClientProps {
   initialData: FetchNotesResponse;
